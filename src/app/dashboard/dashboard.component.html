@@ -1,50 +1,46 @@
-<mat-drawer-container class="example-container" autosize>
+<mat-drawer-container class="dashboard-container" autosize>
 
   <!-- SIDEBAR -->
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side">
+    <p>Menu Lateral</p>
+    <p *ngIf="showFiller">Accion del menu lateral</p>
     <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
+      Opción menu
     </button>
   </mat-drawer>
 
   <!--Contenedor-->
-  <div class="example-sidenav-content">
+  <div class="dashboard-sidenav-content">
     <!--Toolbar-->
     <mat-toolbar color="primary">
       <button
         (click)="drawer.toggle()"
         mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
+        class="dashboard-icon"
+        aria-label="dashboard icon-button with menu icon"
       >
         <mat-icon>menu</mat-icon>
       </button>
       <span> Primera entrega - Gruppo </span>
-      <span class="example-spacer"></span>
+      <span class="dashboard-spacer"></span>
       <button
         mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
+        class="dashboard-icon favorite-icon"
+        aria-label="dashboard icon-button with heart icon"
       >
         <mat-icon>favorite</mat-icon>
       </button>
       <button
         mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
+        class="dashboard-icon"
+        aria-label="dashboard icon-button with bolt icon"
       >
         <mat-icon>bolt</mat-icon>
       </button>
     </mat-toolbar>
     <!--Paginas-->
     <main>
-
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione necessitatibus, maxime omnis iure accusantium maiores perferendis voluptatem ipsa excepturi incidunt at temporibus libero, consequuntur, expedita hic tempore animi fugit reiciendis!</p>
-
       <app-tablas></app-tablas>
-
     </main>
   </div>
 </mat-drawer-container>
