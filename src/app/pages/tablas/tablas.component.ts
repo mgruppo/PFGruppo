@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbmAlumnosComponent } from './abm-alumnos/abm-alumnos.component';
+import { find } from 'rxjs';
 
 
 export interface Estudiante {
@@ -45,7 +46,7 @@ export class TablasComponent {
 
   dataSource = new MatTableDataSource(this.estudiantes);
 
-  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email'];
+  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email', 'actions'];
 
   aplicarFiltros(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
@@ -68,6 +69,12 @@ export class TablasComponent {
         ];
       }
     })
+  }
+
+  borrarAlumno(fila: Estudiante){
+    let index = this.dataSource.data.findIndex(elemento => elemento.id === fila.id) ;
+    this.dataSource.data.splice(index, 1);
+    this.dataSource.data = this.dataSource.data;
   }
 
 }
