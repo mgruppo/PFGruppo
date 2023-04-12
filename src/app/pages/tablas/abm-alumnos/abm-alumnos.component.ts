@@ -9,8 +9,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AbmAlumnosComponent {
 
-  nombreControl = new FormControl('', [Validators.required]);
-  apellidoControl = new FormControl('', [Validators.required]);
+  nombreControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  apellidoControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  fecNacControl = new FormControl('',[Validators.required]);
+  emailControl = new FormControl('',[Validators.required, Validators.email]);
 
   alumnosForm = new FormGroup({
     nombre: this.nombreControl,

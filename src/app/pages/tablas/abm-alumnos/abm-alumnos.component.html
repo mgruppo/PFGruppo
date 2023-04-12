@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>ABM Alumnos</h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="abm-container">
   <form class="grid formgrid" [formGroup]="alumnosForm">
-    <!-- CONTROL DE NOMBRE -->
-
+    <!-- Nombre -->
     <div class="col-12 field">
-      <mat-form-field class="w-full">
+      <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
+        <mat-hint>El nombre de tener como minimo 3 caracteres</mat-hint>
         <input
           [formControl]="nombreControl"
           type="text"
@@ -14,11 +14,9 @@
         <mat-error *ngFor="let error of nombreControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
       </mat-form-field>
     </div>
-
-
-    <!-- CONTROL DE APELLIDO -->
+    <!-- Apellido -->
     <div class="col-12 field">
-      <mat-form-field class="w-full">
+      <mat-form-field appearance="fill">
         <mat-label>Apellido</mat-label>
         <input
           [formControl]="apellidoControl"
@@ -28,10 +26,34 @@
         <mat-error *ngFor="let error of apellidoControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
       </mat-form-field>
     </div>
+    <!-- FechaNacimiento -->
+    <div class="col-12 field">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha Nacimiento</mat-label>
+        <input
+          [formControl]="fecNacControl"
+          type="date"
+          matInput
+        >
+        <mat-error *ngFor="let error of fecNacControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>    
+    <!-- FechaNacimiento -->
+    <div class="col-12 field">
+      <mat-form-field appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input
+          [formControl]="emailControl"
+          type="email"
+          matInput
+        >
+        <mat-error *ngFor="let error of emailControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>    
   </form>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="button-container">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button (click)="guardar()" mat-button>Guardar</button>
 </div>
