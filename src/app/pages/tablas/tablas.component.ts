@@ -8,7 +8,8 @@ export interface Estudiante {
   id: number;
   nombre: string;
   apellido: string;
-  fecha_registro: Date;
+  fecha_nacimiento: Date;
+  email: string;
 }
 
 @Component({
@@ -23,25 +24,28 @@ export class TablasComponent {
       id: 1,
       nombre: 'Emiliano',
       apellido: 'Martinez',
-      fecha_registro: new Date()
+      fecha_nacimiento: new Date('1992-09-02'),
+      email: 'dibu@gmail.com',
     },
     {
       id: 2,
       nombre: 'Paulo',
       apellido: 'Dybala',
-      fecha_registro: new Date()
+      fecha_nacimiento: new Date('1993-11-15'),
+      email: 'pdybala@gmail.com',
     },
     {
       id: 3,
       nombre: 'Lionel',
       apellido: 'Messi',
-      fecha_registro: new Date()
+      fecha_nacimiento: new Date('1987-06-24'),
+      email: 'lmessi10@mail.com',
     },
   ];
 
   dataSource = new MatTableDataSource(this.estudiantes);
 
-  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_registro'];
+  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email'];
 
   aplicarFiltros(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
@@ -59,7 +63,6 @@ export class TablasComponent {
           ...this.dataSource.data,
           {
             ...valor,
-            fecha_registro: new Date(),
             id: this.dataSource.data.length + 1,
           }
         ];

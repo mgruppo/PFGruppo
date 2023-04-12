@@ -17,6 +17,8 @@ export class AbmAlumnosComponent {
   alumnosForm = new FormGroup({
     nombre: this.nombreControl,
     apellido: this.apellidoControl,
+    fecha_nacimiento: this.fecNacControl,
+    email: this.emailControl,
   });
 
   constructor(private dialogRef: MatDialogRef<AbmAlumnosComponent>) {}
