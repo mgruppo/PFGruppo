@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "1PFGruppo": {
+    "2PFGruppo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "1PFGruppo:build:production"
+              "browserTarget": "2PFGruppo:build:production"
             },
             "development": {
-              "browserTarget": "1PFGruppo:build:development"
+              "browserTarget": "2PFGruppo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "1PFGruppo:build"
+            "browserTarget": "2PFGruppo:build"
           }
         },
         "test": {

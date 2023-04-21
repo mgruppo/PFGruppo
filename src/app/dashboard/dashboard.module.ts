@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { TablasModule } from '../pages/tablas/tablas.module';
+import { AlumnosModule } from '../pages/alumnos/alumnos.module';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { TablasModule } from '../pages/tablas/tablas.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    TablasModule,
+    AlumnosModule,
   ],
   exports: [
     DashboardComponent
