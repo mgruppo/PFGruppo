@@ -1,3 +1,3 @@
-# 1PFGruppo
+# 2PFGruppo
 
-Este proyecto corresponde a la primer entrega del proyecto final del curso de Angular de Coderhouse
+Este proyecto corresponde a la segunda entrega del proyecto final del curso de Angular de Coderhouse
