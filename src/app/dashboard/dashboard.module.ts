@@ -5,7 +5,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { AlumnosModule } from '../pages/alumnos/alumnos.module';
+import { AlumnosModule } from './pages/alumnos/alumnos.module';
+import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { CursosModule } from './pages/cursos/cursos.module';
 
 
 @NgModule({
@@ -14,11 +17,14 @@ import { AlumnosModule } from '../pages/alumnos/alumnos.module';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatSidenavModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatListModule,
     AlumnosModule,
+    CursosModule,
   ],
   exports: [
     DashboardComponent

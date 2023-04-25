@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { AbmAlumnosComponent } from './abm-alumnos/abm-alumnos.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlumnoDetalleComponent } from './pages/alumno-detalle/alumno-detalle.component';
 
 @NgModule({
   declarations: [
     AlumnosComponent,
-    AbmAlumnosComponent
+    AbmAlumnosComponent,
+    AlumnoDetalleComponent
   ],
   imports: [
     CommonModule,

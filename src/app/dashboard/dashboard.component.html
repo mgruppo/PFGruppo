@@ -2,11 +2,28 @@
 
   <!-- SIDEBAR -->
   <mat-drawer #drawer class="dashboard-sidenav" mode="side">
-    <p>Menu Lateral</p>
-    <p *ngIf="showFiller">Accion del menu lateral</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Opción menu
-    </button>
+
+    <img width="50" height="50" src="../../assets/img/avatar.svg">
+
+    <p>{{ (authUser$ | async)?.email }}</p>
+
+
+    <mat-nav-list>
+      <a
+        [routerLink]="link.path"
+        mat-list-item
+        *ngFor="let link of links"
+      >
+        <mat-icon *ngIf="link.icon">{{ link.icon }}</mat-icon> {{ link.title }}
+      </a>
+      <a
+        (click)="logout()"
+        mat-list-item
+      >
+        Cerrar sesión
+      </a>
+    </mat-nav-list>
+
   </mat-drawer>
 
   <!--Contenedor-->
@@ -21,7 +38,7 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <span> Primera entrega - Gruppo </span>
+      <span> Segunda entrega - Gruppo </span>
       <span class="dashboard-spacer"></span>
       <button
         mat-icon-button
