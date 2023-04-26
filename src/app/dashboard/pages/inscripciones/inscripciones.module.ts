@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CursosComponent } from './cursos.component';
-import { AbmCursosComponent } from './components/abm-cursos/abm-cursos.component';
+import { InscripcionesComponent } from './inscripciones.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,15 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CursoDetalleComponent } from './pages/curso-detalle/curso-detalle.component';
-import { DirectivesModule } from 'src/app/shared/directives/directives.module';
-
 
 @NgModule({
   declarations: [
-    CursosComponent,
-    AbmCursosComponent,
-    CursoDetalleComponent,
+    InscripcionesComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +28,6 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DirectivesModule
-  ]
+  ],
 })
-export class CursosModule { }
+export class InscripcionesModule { }

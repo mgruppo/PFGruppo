@@ -6,6 +6,8 @@ import { CursosComponent } from './dashboard/pages/cursos/cursos.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/pages/login/login/login.component';
 import { AlumnoDetalleComponent } from './dashboard/pages/alumnos/pages/alumno-detalle/alumno-detalle.component';
+import { InscripcionesComponent } from './dashboard/pages/inscripciones/inscripciones.component';
+import { CursoDetalleComponent } from './dashboard/pages/cursos/pages/curso-detalle/curso-detalle.component';
 
 const routes: Routes = [
   // Tablero
@@ -28,7 +30,20 @@ const routes: Routes = [
       },
       {
         path: 'cursos',
-        component: CursosComponent,
+        children: [
+          {
+            path: '',
+            component: CursosComponent,
+          },
+          {
+            path: ':id',
+            component: CursoDetalleComponent,
+          }
+        ]
+      },      
+      {
+        path: 'inscripciones',
+        component: InscripcionesComponent,
       }
     ]
   },

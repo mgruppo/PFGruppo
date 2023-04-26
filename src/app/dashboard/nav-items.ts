@@ -15,6 +15,11 @@ interface NavItem {
       title: 'Cursos',
       icon: 'school'
     },
+    {
+      path: 'inscripciones',
+      title: 'Inscripciones',
+      icon: 'history_edu'
+    },
   ]
   
   export default links;  

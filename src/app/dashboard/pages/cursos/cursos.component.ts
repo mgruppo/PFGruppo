@@ -4,6 +4,7 @@ import { CursosService } from './services/cursos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AbmCursosComponent } from './components/abm-cursos/abm-cursos.component';
 import { Curso } from './models';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -25,7 +26,9 @@ export class CursosComponent implements OnInit {
 
   constructor(
     private cursosService: CursosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +72,11 @@ export class CursosComponent implements OnInit {
 
   aplicarFiltros(ev: Event): void {}
 
-  irAlDetalle(cursoId: number): void {}
+  irAlDetalle(cursoId: number): void {
+    this.router.navigate([cursoId], {
+      relativeTo: this.activatedRoute,
+    });
+  }
 
 }
 
