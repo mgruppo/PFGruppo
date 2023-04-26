@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, take } from "rxjs";
-import { Inscripcion } from "../models";
+import { CrearInscripcionPayload, Inscripcion } from "../models";
 import { Injectable } from "@angular/core";
 
 const INSCRIPCIONES_MOCKS: Inscripcion[] = [
@@ -84,5 +84,27 @@ export class InscripcionesService {
 
     return this.inscripciones$.asObservable();
   }
+
+  crearInscripcion(payload: CrearInscripcionPayload): Observable<Inscripcion[]> {
+    this.inscripciones$
+      .pipe(
+        take(1)
+      )
+      .subscribe({
+        next: (inscripciones) => {
+          this.inscripciones$.next([
+            ...inscripciones,
+            {
+              id: inscripciones.length + 1,
+              ...payload,
+            },
+          ]);
+        },
+        complete: () => {},
+        error: () => {}
+      });
+    return this.inscripciones$.asObservable();
+  }
+
 
 }

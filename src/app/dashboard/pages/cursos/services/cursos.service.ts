@@ -63,11 +63,6 @@ export class CursosService {
         complete: () => {},
         error: () => {}
       });
-
-      // then => next
-      // catch => error
-      // finally => complete
-
     return this.cursos$.asObservable();
   }
 

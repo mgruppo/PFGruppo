@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { InscripcionesService } from './services/inscripciones.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Inscripcion } from './models';
+import { AbmInscripcionesComponent } from './components/abm-inscripciones/abm-inscripciones.component';
 
 
 @Component({
@@ -40,6 +41,16 @@ export class InscripcionesComponent implements OnInit {
     if (confirm('Está seguro?')) {
       this.inscripcionesService.eliminarInscripciones(inscripcion.id);
     }
+  }
+
+  crearInscripciones(): void {
+    const dialog = this.dialog.open(AbmInscripcionesComponent);
+    dialog.afterClosed()
+      .subscribe((formValue) => {
+        if (formValue) {
+          this.inscripcionesService.crearInscripcion(formValue)
+        }
+      });
   }
 
 }

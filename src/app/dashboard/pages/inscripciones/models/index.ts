@@ -6,3 +6,8 @@ export interface Inscripcion {
     curso: Curso;
     alumno: Alumnos;
 }
+
+export interface CrearInscripcionPayload {
+    curso: Curso;
+    alumno: Alumnos;
+  }  
