@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbmAlumnosComponent } from './abm-alumnos/abm-alumnos.component';
-import { find } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlumnosService } from './services/alumnos.service';
 
 
 export interface Estudiante {
@@ -44,26 +45,43 @@ export class AlumnosComponent {
     },
   ];
 
-  dataSource = new MatTableDataSource(this.estudiantes);
+  dataSource = new MatTableDataSource<Estudiante>();
 
-  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email', 'actions'];
+  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email', 'ver_detalle', 'eliminar', 'editar'];
 
   aplicarFiltros(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
     this.dataSource.filter = inputValue?.trim()?.toLowerCase();
   }
 
-  constructor(private MatDialog: MatDialog ) {}
+  constructor(
+    private matDialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private alumnosService: AlumnosService,
+  ) {
+    this.alumnosService.obtenerAlumnos()
+      .subscribe((alumnos) => {
+        this.dataSource.data = alumnos;
+      })
+  }
 
+  irAlDetalle(alumnoId: number): void {
+    this.router.navigate([alumnoId], {
+      relativeTo: this.activatedRoute,
+    });
+  }
 
-  abrirABMAlumnos(): void {
-    const dialog = this.MatDialog.open(AbmAlumnosComponent)
+  crearAlumno(): void {
+    const dialog = this.matDialog.open(AbmAlumnosComponent)
     dialog.afterClosed().subscribe((valor) => {
       if (valor) {
         this.dataSource.data = [
           ...this.dataSource.data,
+          // AGREGANDO NUEVO ELEMENTO:
           {
-            ...valor,
+            ...valor, // { nombre: 'xxxxxx', apellido: 'xxxxx' }
+            fecha_registro: new Date(),
             id: this.dataSource.data.length + 1,
           }
         ];
@@ -76,5 +94,23 @@ export class AlumnosComponent {
     this.dataSource.data.splice(index, 1);
     this.dataSource.data = this.dataSource.data;
   }
+
+  editarAlumno(alumnoParaEditar: Estudiante): void {
+    const dialog = this.matDialog.open(AbmAlumnosComponent, {
+      data: {
+        alumnoParaEditar
+      }
+    });
+    dialog.afterClosed().subscribe((valorDelFormulario) => {
+      if (valorDelFormulario) {
+        this.dataSource.data = this.dataSource.data.map(
+          (alumnoActual) => alumnoActual.id === alumnoParaEditar.id
+            ? ({ ...alumnoActual, ...valorDelFormulario}) // { nombre: 'xxxxxx', apellido: 'xxxxx' }
+            : alumnoActual,
+        );
+      }
+    })
+  }
+
 
 }
