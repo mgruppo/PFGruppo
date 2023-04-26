@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlumnosService } from './services/alumnos.service';
 
 
-export interface Estudiante {
+export interface Alumnos {
   id: number;
   nombre: string;
   apellido: string;
@@ -21,7 +21,7 @@ export interface Estudiante {
 })
 export class AlumnosComponent {
   
-  estudiantes: Estudiante[] = [
+  estudiantes: Alumnos[] = [
     {
       id: 1,
       nombre: 'Emiliano',
@@ -45,7 +45,7 @@ export class AlumnosComponent {
     },
   ];
 
-  dataSource = new MatTableDataSource<Estudiante>();
+  dataSource = new MatTableDataSource<Alumnos>();
 
   displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_nacimiento', 'email', 'ver_detalle', 'eliminar', 'editar'];
 
@@ -89,13 +89,13 @@ export class AlumnosComponent {
     })
   }
 
-  borrarAlumno(fila: Estudiante){
+  borrarAlumno(fila: Alumnos){
     let index = this.dataSource.data.findIndex(elemento => elemento.id === fila.id) ;
     this.dataSource.data.splice(index, 1);
     this.dataSource.data = this.dataSource.data;
   }
 
-  editarAlumno(alumnoParaEditar: Estudiante): void {
+  editarAlumno(alumnoParaEditar: Alumnos): void {
     const dialog = this.matDialog.open(AbmAlumnosComponent, {
       data: {
         alumnoParaEditar

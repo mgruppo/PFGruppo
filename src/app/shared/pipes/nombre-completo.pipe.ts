@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Estudiante } from 'src/app/dashboard/pages/alumnos/alumnos.component';
+import { Alumnos } from 'src/app/dashboard/pages/alumnos/alumnos.component';
 
 @Pipe({
   name: 'nombreCompleto'
 })
 export class NombreCompletoPipe implements PipeTransform {
 
-  transform(value: Estudiante, ...args: unknown[]): unknown {
+  transform(value: Alumnos, ...args: unknown[]): unknown {
     const newValue = `${value.nombre} ${value.apellido}`;
     switch (args[0]) {
       case 'mayuscula':

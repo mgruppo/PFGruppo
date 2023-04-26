@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Estudiante } from '../../alumnos.component';
+import { Alumnos } from '../../alumnos.component';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AlumnosService } from '../../services/alumnos.service';
@@ -11,7 +11,7 @@ import { AlumnosService } from '../../services/alumnos.service';
 })
 export class AlumnoDetalleComponent implements OnDestroy {
 
-  alumno: Estudiante | undefined;
+  alumno: Alumnos | undefined;
 
   private destroyed$ = new Subject()
 

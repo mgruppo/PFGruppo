@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
-import { Estudiante } from '../alumnos.component';
+import { Alumnos } from '../alumnos.component';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,10 @@ import { Estudiante } from '../alumnos.component';
 export class AlumnosService {
 
   // Subject
-  private estudiantes2$ = new Subject<Estudiante[]>();
+  private estudiantes2$ = new Subject<Alumnos[]>();
 
   // BehaviorSubject
-  private estudiantes$ = new BehaviorSubject<Estudiante[]>([
+  private estudiantes$ = new BehaviorSubject<Alumnos[]>([
     {
       id: 1,
       nombre: 'Emiliano',
@@ -37,11 +37,11 @@ export class AlumnosService {
 
   constructor() { }
 
-  obtenerAlumnos(): Observable<Estudiante[]> {
+  obtenerAlumnos(): Observable<Alumnos[]> {
     return this.estudiantes$.asObservable();
   }
 
-  obtenerAlumnoPorId(id: number): Observable<Estudiante | undefined> {
+  obtenerAlumnoPorId(id: number): Observable<Alumnos | undefined> {
     return this.estudiantes$.asObservable()
       .pipe(
         map((alumnos) => alumnos.find((a) => a.id === id))
