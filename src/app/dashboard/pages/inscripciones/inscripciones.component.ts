@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { InscripcionesService } from './services/inscripciones.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Inscripcion } from './models';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class InscripcionesComponent implements OnInit {
       'nombre_curso',
       'id_alumno',
       'nombre_alumno',
-      'apellido_alumno'
+      'apellido_alumno',
+      'eliminar'
     ];
   
     constructor(
@@ -33,5 +35,11 @@ export class InscripcionesComponent implements OnInit {
         },
       });
     }
+
+    eliminarInscripcion(inscripcion: Inscripcion): void {
+    if (confirm('Está seguro?')) {
+      this.inscripcionesService.eliminarInscripciones(inscripcion.id);
+    }
+  }
 
 }
