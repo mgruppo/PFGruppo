@@ -17,7 +17,8 @@ export class InscripcionesComponent implements OnInit {
       'id_curso',
       'nombre_curso',
       'id_alumno',
-      'nombre_alumno'
+      'nombre_alumno',
+      'apellido_alumno'
     ];
   
     constructor(
