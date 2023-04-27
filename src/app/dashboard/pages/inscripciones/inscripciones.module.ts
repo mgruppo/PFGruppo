@@ -10,9 +10,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOption, MatOptionModule } from '@angular/material/core';
 import { AbmInscripcionesComponent } from './components/abm-inscripciones/abm-inscripciones.component';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     MatDatepickerModule,
     MatNativeDateModule,
     DirectivesModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
 })
 export class InscripcionesModule { }

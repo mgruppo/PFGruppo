@@ -4,15 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AbmAlumnosComponent } from './abm-alumnos/abm-alumnos.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlumnosService } from './services/alumnos.service';
+import { Alumnos } from './models';
 
-
-export interface Alumnos {
-  id: number;
-  nombre: string;
-  apellido: string;
-  fecha_nacimiento: Date;
-  email: string;
-}
 
 @Component({
   selector: 'app-alumnos',

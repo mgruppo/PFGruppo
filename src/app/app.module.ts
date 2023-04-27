@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/pages/login/login/login.component';
 import { AbmCursosComponent } from './dashboard/pages/cursos/components/abm-cursos/abm-cursos.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
