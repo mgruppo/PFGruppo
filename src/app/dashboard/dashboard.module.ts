@@ -5,10 +5,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
-import { CursosModule } from './pages/cursos/cursos.module';
 import { InscripcionesModule } from './pages/inscripciones/inscripciones.module';
 
 
@@ -24,9 +22,21 @@ import { InscripcionesModule } from './pages/inscripciones/inscripciones.module'
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
-    AlumnosModule,
-    CursosModule,
     InscripcionesModule,
+    RouterModule.forChild([
+      {
+        path: 'estudiantes',
+        loadChildren: () => import('./pages/alumnos/alumnos.module').then((m) => m.AlumnosModule)
+      },
+      {
+        path: 'cursos',
+        loadChildren: () => import('./pages/cursos/cursos.module').then((m) => m.CursosModule),
+      },
+      {
+        path: 'inscripciones',
+        loadChildren: () => import('./pages/inscripciones/inscripciones.module').then((m) => m.InscripcionesModule),
+      }
+    ])
   ],
   exports: [
     DashboardComponent

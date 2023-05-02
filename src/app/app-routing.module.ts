@@ -1,62 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AlumnosComponent } from './dashboard/pages/alumnos/alumnos.component';
-import { CursosComponent } from './dashboard/pages/cursos/cursos.component';
 import { AuthComponent } from './auth/auth.component';
-import { LoginComponent } from './auth/pages/login/login/login.component';
-import { AlumnoDetalleComponent } from './dashboard/pages/alumnos/pages/alumno-detalle/alumno-detalle.component';
-import { InscripcionesComponent } from './dashboard/pages/inscripciones/inscripciones.component';
-import { CursoDetalleComponent } from './dashboard/pages/cursos/pages/curso-detalle/curso-detalle.component';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { LoginGuard } from './auth/guards/login.guard';
 
 const routes: Routes = [
   // Tablero
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     component: DashboardComponent,
-    children: [
-      {
-        path: 'estudiantes',
-        children: [
-          {
-            path: '',
-            component: AlumnosComponent,
-          },
-          {
-            path: ':id',
-            component: AlumnoDetalleComponent
-          }
-        ]
-      },
-      {
-        path: 'cursos',
-        children: [
-          {
-            path: '',
-            component: CursosComponent,
-          },
-          {
-            path: ':id',
-            component: CursoDetalleComponent,
-          }
-        ]
-      },      
-      {
-        path: 'inscripciones',
-        component: InscripcionesComponent,
-      }
-    ]
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+
   },
   // Autentificacion
   {
     path: 'auth',
+    canActivate: [LoginGuard],
     component: AuthComponent,
-    children: [
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-    ]
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: '**',

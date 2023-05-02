@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CursoDetalleComponent } from './pages/curso-detalle/curso-detalle.component';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -34,7 +35,13 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DirectivesModule
+    DirectivesModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: CursosComponent
+      }
+    ])
   ]
 })
 export class CursosModule { }

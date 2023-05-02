@@ -14,6 +14,7 @@ import { MatNativeDateModule, MatOption, MatOptionModule } from '@angular/materi
 import { AbmInscripcionesComponent } from './components/abm-inscripciones/abm-inscripciones.component';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import {MatSelectModule} from '@angular/material/select';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,12 @@ import {MatSelectModule} from '@angular/material/select';
     DirectivesModule,
     MatOptionModule,
     MatSelectModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: InscripcionesComponent
+      }
+    ])
   ],
 })
 export class InscripcionesModule { }
