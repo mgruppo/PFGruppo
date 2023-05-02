@@ -1,3 +1,3 @@
-# 2PFGruppo
+# APIRESTGruppo
 
-Este proyecto corresponde a la segunda entrega del proyecto final del curso de Angular de Coderhouse
+Este proyecto corresponde al desafio APIREST del curso de Angular de Coderhouse
