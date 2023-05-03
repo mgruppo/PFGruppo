@@ -40,6 +40,10 @@ import { RouterModule } from '@angular/router';
       {
         path: '',
         component: CursosComponent
+      },
+      {
+        path: ':id',
+        component: CursoDetalleComponent       
       }
     ])
   ]

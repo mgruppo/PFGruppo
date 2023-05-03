@@ -1,0 +1,42 @@
+{
+    "usuarios": [
+      {
+        "id": 1,
+        "nombre": "Mariano",
+        "apellido": "Gruppo",
+        "email": "admin@mail.com",
+        "password": "123456",
+        "token": "SzUmekQjkKpDzYdJ9PnBcx7H8PEvTqZcfTifhQfg",
+        "role": "admin"
+      },
+      {
+        "id": 2,
+        "nombre": "Lionel",
+        "apellido": "Scaloni",
+        "email": "test@mail.com",
+        "password": "123456",
+        "token": "Rmy8UP3EnFbLMM7kZxN3pdeL44wmDYCSGYRiMEFm",
+        "role": "user"
+      }
+    ],
+    "cursos": [
+      {
+        "id": 1,
+        "nombre": "Angular",
+        "fecha_fin": "2023-05-02T01:27:59.631Z",
+        "fecha_inicio": "2023-05-10T01:27:59.631Z"
+      },
+      {
+        "id": 2,
+        "nombre": "Javascript",
+        "fecha_fin": "2023-05-02T01:27:59.631Z",
+        "fecha_inicio": "2023-05-10T01:27:59.631Z"
+      },
+      {
+        "id": 3,
+        "nombre": "Desarrollo Web",
+        "fecha_fin": "2023-05-02T01:27:59.631Z",
+        "fecha_inicio": "2023-05-10T01:27:59.631Z"
+      }
+    ]
+  }

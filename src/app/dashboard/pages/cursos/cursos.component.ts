@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CursosService } from './services/cursos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AbmCursosComponent } from './components/abm-cursos/abm-cursos.component';
 import { Curso } from './models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.scss']
 })
-export class CursosComponent implements OnInit {
+export class CursosComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource();
 
   displayedColumns = [
@@ -24,12 +25,18 @@ export class CursosComponent implements OnInit {
     'eliminar',
   ];
 
+  cursosSuscription: Subscription | null = null;
+
   constructor(
     private cursosService: CursosService,
     private dialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {}
+
+  ngOnDestroy(): void {
+    this.cursosSuscription?.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.cursosService.obtenerCursos().subscribe({
