@@ -5,7 +5,7 @@ import {
   BehaviorSubject,
   map,
   catchError,
-  throwError,
+  of,
 } from 'rxjs';
 import { Usuario } from '../../core/models';
 import { Router } from '@angular/router';
@@ -74,8 +74,7 @@ export class AuthService {
           return !!usuarioAutenticado;
         }),
         catchError((err) => {
-          alert('Error al verificar el token');
-          return throwError(() => err);
+          return of(false);
         })
       );
   }
