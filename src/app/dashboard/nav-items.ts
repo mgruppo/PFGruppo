@@ -20,6 +20,11 @@ interface NavItem {
       title: 'Inscripciones',
       icon: 'history_edu'
     },
+    {
+      path: 'usuarios',
+      title: 'Usuarios',
+      icon: 'admin_panel_settings'
+    },
   ]
   
   export default links;  

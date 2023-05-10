@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { InscripcionesModule } from './pages/inscripciones/inscripciones.module';
+import { AdminGuard } from '../auth/guards/admin.guard';
 
 
 @NgModule({
@@ -35,6 +36,11 @@ import { InscripcionesModule } from './pages/inscripciones/inscripciones.module'
       {
         path: 'inscripciones',
         loadChildren: () => import('./pages/inscripciones/inscripciones.module').then((m) => m.InscripcionesModule),
+      },
+      {
+        path: 'usuarios',
+        canActivate: [AdminGuard],
+        loadChildren: () => import('./pages/usuarios/usuarios.module').then((m) => m.UsuariosModule),
       }
     ])
   ],
