@@ -15,6 +15,11 @@ import { AbmInscripcionesComponent } from './components/abm-inscripciones/abm-in
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import {MatSelectModule} from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { InscripcionesEffects } from './store/inscripciones.effects';
+import { StoreModule } from '@ngrx/store';
+import { inscripcionesFeature } from './store/inscripciones.reducer';
+import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     PipesModule,
     ReactiveFormsModule,
+    InscripcionesRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -36,12 +42,8 @@ import { RouterModule } from '@angular/router';
     DirectivesModule,
     MatOptionModule,
     MatSelectModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: InscripcionesComponent
-      }
-    ])
+    StoreModule.forFeature(inscripcionesFeature),
+    EffectsModule.forFeature([InscripcionesEffects])
   ],
 })
 export class InscripcionesModule { }

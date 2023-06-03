@@ -8,17 +8,20 @@ import { enviroment } from 'src/environments/environments';
 import { Usuario } from 'src/app/core/models';
 import { Router } from '@angular/router';
 import { skip } from 'rxjs';
+import { Store, StoreModule } from '@ngrx/store';
 
 describe('Pruebas sobre AuthService', () => {
   let service: AuthService;
   let httpController: HttpTestingController;
+  let store: Store;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,StoreModule.forRoot({})],
     }).compileComponents();
     service = TestBed.inject(AuthService);
     httpController = TestBed.inject(HttpTestingController);
+    store = TestBed.inject(Store);
   });
 
   it('El login debe funcionar', (done) => {
@@ -40,7 +43,7 @@ describe('Pruebas sobre AuthService', () => {
     spyOn(TestBed.inject(Router), 'navigate');
     service
       .obtenerUsuarioAutenticado()
-      .pipe(skip(1))
+      .pipe()
       .subscribe((usuario) => {
         expect(usuario).toEqual(MOCK_REQUEST_RESULT[0]);
         done();
