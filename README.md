@@ -7,6 +7,6 @@ Para loguearse como admin:
     email: admin@mail.com
     password: 123456
 
-Para loguearse como admin:
+Para loguearse como user:
     email: test@mail.com
     password: 123456
