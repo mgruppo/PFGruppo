@@ -1,37 +1,26 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
-import links from './nav-items';
+import links, { NavItem } from './nav-items';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnDestroy {
   showFiller = false;
-  
+
   authUser$: Observable<Usuario | null>;
 
   links = links;
 
   destroyed$ = new Subject<void>();
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
-
-    this.authUser$ = this.authService.obtenerUsuarioAutenticado()
-
-    // this.authService.obtenerUsuarioAutenticado()
-    //   .pipe(
-    //     // tomar hasta que el componente se destruya
-    //     takeUntil(this.destroyed$)
-    //   )
-    //   .subscribe((usuario) => this.authUser = usuario);
+  constructor(private authService: AuthService, private router: Router) {
+    this.authUser$ = this.authService.obtenerUsuarioAutenticado();
   }
 
   ngOnDestroy(): void {
@@ -42,5 +31,12 @@ export class DashboardComponent implements OnDestroy {
   logout(): void {
     this.authService.logout();
   }
-}
 
+  verifyRole(link: NavItem): Observable<boolean> {
+    return this.authUser$.pipe(
+      map((usuarioAuth) =>
+        link.allowedRoles.some((r) => r === usuarioAuth?.role)
+      )
+    );
+  }
+}

@@ -24,40 +24,7 @@ describe('Pruebas sobre AuthService', () => {
     store = TestBed.inject(Store);
   });
 
-  it('El login debe funcionar', (done) => {
-    const loginFake: LoginFormValue = {
-      email: 'test@mail.com',
-      password: '123456',
-    };
-    const MOCK_REQUEST_RESULT: Usuario[] = [
-      {
-        id: 1,
-        apellido: 'apellidotest',
-        email: loginFake.email,
-        nombre: 'nombretest',
-        password: loginFake.password,
-        role: 'admin',
-        token: 'Mmy8UP3EnFbLMM7kZxN3pdeL44wmDYCSGYRiMEFm',
-      },
-    ];
-    spyOn(TestBed.inject(Router), 'navigate');
-    service
-      .obtenerUsuarioAutenticado()
-      .pipe()
-      .subscribe((usuario) => {
-        expect(usuario).toEqual(MOCK_REQUEST_RESULT[0]);
-        done();
-      });
-    service.login(loginFake);
-    httpController
-      .expectOne({
-        url: `${enviroment.apiBaseUrl}/usuarios?email=${loginFake.email}&password=${loginFake.password}`,
-        method: 'GET',
-      })
-      .flush(MOCK_REQUEST_RESULT);
-  });
-
-  it('El logout debe emitir un authUser null, remover el token del Localstorage y redireccionar al usuario', () => {
+  it('El logout debe emitir un authUser null, remover el token del Localstorage y redireccionar al usuario, previo hacer login', () => {
     const spyOnNavigate = spyOn(TestBed.inject(Router), 'navigate');
     const loginFake: LoginFormValue = {
       email: 'test@mail.com',

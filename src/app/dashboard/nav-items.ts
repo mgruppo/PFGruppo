@@ -1,29 +1,34 @@
-interface NavItem {
+export interface NavItem {
     path: string;
     title: string;
     icon?: string;
+    allowedRoles: string[];
   }
   
   const links: NavItem[] = [
     {
       path: 'estudiantes',
-      title: 'Estudiantes',
+      title: 'Alumnos',
       icon: 'person',
+      allowedRoles: [],
     },
     {
       path: 'cursos',
       title: 'Cursos',
-      icon: 'school'
+      icon: 'school',
+      allowedRoles: [],
     },
     {
       path: 'inscripciones',
       title: 'Inscripciones',
-      icon: 'history_edu'
+      icon: 'history_edu',
+      allowedRoles: [],
     },
     {
       path: 'usuarios',
       title: 'Usuarios',
-      icon: 'admin_panel_settings'
+      icon: 'admin_panel_settings',
+      allowedRoles: ['admin'],
     },
   ]
   

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { Alumnos } from '../models';
+import { HttpClient } from '@angular/common/http';
+import { enviroment } from 'src/environments/environments';
+
 
 
 @Injectable({
@@ -36,7 +39,7 @@ export class AlumnosService {
     },
   ])
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   obtenerAlumnos(): Observable<Alumnos[]> {
     return this.estudiantes$.asObservable();
@@ -48,5 +51,10 @@ export class AlumnosService {
         map((alumnos) => alumnos.find((a) => a.id === id))
       )
   }
+
+  getStudentsFromDB(): Observable<Alumnos[]> {
+    return this.httpClient.get<Alumnos[]>(`${enviroment.apiBaseUrl}/students`);
+  }  
+
 }
 

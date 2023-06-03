@@ -22,19 +22,19 @@
   "cursos": [
     {
       "id": 1,
-      "nombre": "Angular",
+      "subjectId": 1,
       "fecha_fin": "2023-05-02T01:27:59.631Z",
       "fecha_inicio": "2023-05-10T01:27:59.631Z"
     },
     {
       "id": 2,
-      "nombre": "Javascript",
+      "subjectId": 2,
       "fecha_fin": "2023-05-02T01:27:59.631Z",
       "fecha_inicio": "2023-05-10T01:27:59.631Z"
     },
     {
       "id": 3,
-      "nombre": "Desarrollo Web",
+      "subjectId": 3,
       "fecha_fin": "2023-05-02T01:27:59.631Z",
       "fecha_inicio": "2023-05-10T01:27:59.631Z"
     }
@@ -80,6 +80,12 @@
       "studentId": 1,
       "courseId": 2,
       "id": 4
+    },
+    {
+      "subjectId": 3,
+      "studentId": 2,
+      "courseId": 3,
+      "id": 5
     }
   ],
   "students": [

@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, mergeMap, take, tap } from 'rxjs';
-import { CrearCursoPayload, Curso } from '../models';
+import { CrearCursoPayload, Curso, CursoWithSubject } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { enviroment } from 'src/environments/environments';
 
 const CURSOS_MOCKS: Curso[] = [
   {
     id: 1,
-    nombre: 'Angular',
+    subjectId: 1,
     fecha_fin: new Date(),
     fecha_inicio: new Date(),
   },
   {
     id: 2,
-    nombre: 'Javascript',
+    subjectId: 2,
     fecha_fin: new Date(),
     fecha_inicio: new Date(),
   },
   {
     id: 3,
-    nombre: 'Desarrollo Web',
+    subjectId: 3,
     fecha_fin: new Date(),
     fecha_inicio: new Date(),
   },
@@ -37,12 +37,23 @@ export class CursosService {
     private httpClient: HttpClient
   ) {}
 
+  get cursos(): Observable<Curso[]> {
+    return this.cursos$.asObservable();
+  }
+
   obtenerCursos(): Observable<Curso[]> {
-    return this.httpClient.get<Curso[]>(`${enviroment.apiBaseUrl}/cursos`)
+    return this.httpClient
+      .get<Curso[]>(`${enviroment.apiBaseUrl}/cursos?_expand=subject`)
       .pipe(
         tap((cursos) => this.cursos$.next(cursos)),
         mergeMap(() => this.cursos$.asObservable())
       );
+  }
+
+  obtenerCursosWithSubject(): Observable<CursoWithSubject[]> {
+    return this.httpClient.get<CursoWithSubject[]>(
+      `${enviroment.apiBaseUrl}/cursos?_expand=subject`
+    );
   }
 
   getCursoById(cursoId: number): Observable<Curso | undefined> {
@@ -53,23 +64,24 @@ export class CursosService {
   }
 
   crearCurso(payload: CrearCursoPayload): Observable<Curso[]> {
-    this.cursos$
-      .pipe(
-        take(1)
-      )
-      .subscribe({
-        next: (cursos) => {
-          this.cursos$.next([
-            ...cursos,
-            {
-              id: cursos.length + 1,
-              ...payload,
-            },
-          ]);
-        },
-        complete: () => {},
-        error: () => {}
-      });
+    this.cursos$.pipe(take(1)).subscribe({
+      next: (cursos) => {
+        this.cursos$.next([
+          ...cursos,
+          {
+            id: cursos.length + 1,
+            ...payload,
+          },
+        ]);
+      },
+      complete: () => {},
+      error: () => {},
+    });
+
+    // then => next
+    // catch => error
+    // finally => complete
+
     return this.cursos$.asObservable();
   }
 

@@ -1,58 +1,86 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Curso } from '../../../cursos/models';
+import { Curso, CursoWithSubject } from '../../../cursos/models';
 import { Alumnos } from '../../../alumnos/models';
 import { AlumnosService } from '../../../alumnos/services/alumnos.service';
 import { CursosService } from '../../../cursos/services/cursos.service';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import { CreateInscripcionData } from '../../models';
+import { Subject, takeUntil } from 'rxjs';
+import { DialogRef } from '@angular/cdk/dialog';
+import { Store } from '@ngrx/store';
+import { InscripcionesActions } from '../../store/inscripciones.actions';
 
 @Component({
   selector: 'app-abm-inscripciones',
   templateUrl: './abm-inscripciones.component.html',
-  styleUrls: ['./abm-inscripciones.component.scss']
+  styleUrls: ['./abm-inscripciones.component.scss'],
 })
-export class AbmInscripcionesComponent implements OnInit {
+export class AbmInscripcionesComponent implements OnInit, OnDestroy {
+  alumnos: Alumnos[] = [];
+  cursos: CursoWithSubject[] = [];
 
-  cursoControl = new FormControl([], [Validators.required]);
-  alumnoControl = new FormControl([], [Validators.required]);
+  selectedCourseControl = new FormControl<Curso | null>(null);
 
-  public listaCursos: Curso[] = [];
-  public listaAlumnos: Alumnos[] = [];
+  studentIdControl = new FormControl<number | null>(null, [
+    Validators.required,
+  ]);
+  subjectIdControl = new FormControl<number | null>(null, [
+    Validators.required,
+  ]);
+  courseIdControl = new FormControl<number | null>(null, [Validators.required]);
 
-  inscripcionForm = new FormGroup({
-    curso: this.cursoControl,
-    alumno: this.alumnoControl,
+  incripcionForm = new FormGroup({
+    subjectId: this.subjectIdControl,
+    studentId: this.studentIdControl,
+    courseId: this.courseIdControl,
   });
 
+  destroyed$ = new Subject<void>();
 
   constructor(
     private alumnosService: AlumnosService,
     private cursosService: CursosService,
-    private dialogRef: MatDialogRef<any>,
+    private dialogRef: DialogRef<AbmInscripcionesComponent>,
+    private store: Store
   ) {
+    this.selectedCourseControl.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (curso) => {
+          if (curso) {
+            this.subjectIdControl.setValue(curso.subjectId);
+            this.courseIdControl.setValue(curso.id);
+          }
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   ngOnInit(): void {
-    this.alumnosService.obtenerAlumnos()
-    .subscribe((alumnos) => {
-      this.listaAlumnos = alumnos;
+    this.cursosService.obtenerCursosWithSubject().subscribe({
+      next: (res) => {
+        this.cursos = res;
+      },
     });
-    this.cursosService.obtenerCursos()
-    .subscribe((cursos) => {
-      this.listaCursos = cursos;
-    })
+    this.alumnosService.getStudentsFromDB().subscribe({
+      next: (res) => {
+        this.alumnos = res;
+      },
+    });
   }
 
   guardar(): void {
-    if (this.inscripcionForm.valid) {
-      
-      console.log(this.inscripcionForm.value)
-      this.dialogRef.close(this.inscripcionForm.value)
+    this.store.dispatch(
+      InscripcionesActions.createInscripcion({
+        data: this.incripcionForm.value as CreateInscripcionData,
+      })
+    );
 
-    } else {
-      this.inscripcionForm.markAllAsTouched();
-    }
+    this.dialogRef.close();
   }
-
 }
