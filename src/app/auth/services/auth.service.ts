@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  Subject,
-  BehaviorSubject,
   map,
   catchError,
   of,
@@ -11,6 +9,10 @@ import { Usuario } from '../../core/models';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { enviroment } from 'src/environments/environments';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { selectAuthUser } from 'src/app/store/auth/auth.selectors';
+import { EstablecerUsuarioAutenticado, QuitarUsuarioAutenticado } from 'src/app/store/auth/auth.actions';
 
 export interface LoginFormValue {
   email: string;
@@ -21,12 +23,21 @@ export interface LoginFormValue {
   providedIn: 'root',
 })
 export class AuthService {
-  private authUser$ = new BehaviorSubject<Usuario | null>(null);
 
-  constructor(private router: Router, private httpClient: HttpClient) {}
+  constructor(
+    private router: Router,
+    private httpClient: HttpClient,
+    private store: Store<AppState>
+  ) {}
 
   obtenerUsuarioAutenticado(): Observable<Usuario | null> {
-    return this.authUser$.asObservable();
+    return this.store.select(selectAuthUser);
+  }
+
+  establecerUsuarioAutenticado(usuario: Usuario, token: string): void {
+    this.store.dispatch(
+      EstablecerUsuarioAutenticado({ payload: { ...usuario, token } })
+    );
   }
 
   login(formValue: LoginFormValue): void {
@@ -41,7 +52,7 @@ export class AuthService {
           const usuarioAutenticado = usuarios[0];
           if (usuarioAutenticado) {
             localStorage.setItem('token', usuarioAutenticado.token);
-            this.authUser$.next(usuarioAutenticado);
+            this.establecerUsuarioAutenticado(usuarioAutenticado, usuarioAutenticado.token);
             this.router.navigate(['dashboard']);
           } else {
             alert('¡Usuario y contraseña incorrectos!');
@@ -52,7 +63,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.authUser$.next(null);
+    this.store.dispatch(QuitarUsuarioAutenticado());
     this.router.navigate(['auth']);
   }
 
@@ -69,7 +80,7 @@ export class AuthService {
           const usuarioAutenticado = usuarios[0];
           if (usuarioAutenticado) {
             localStorage.setItem('token', usuarioAutenticado.token);
-            this.authUser$.next(usuarioAutenticado);
+            this.establecerUsuarioAutenticado(usuarioAutenticado, usuarioAutenticado.token);
           }
           return !!usuarioAutenticado;
         }),
